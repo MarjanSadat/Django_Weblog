@@ -2,6 +2,7 @@ from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404, get_list_or_404
 # from django.http import HttpResponse, JsonResponse, Http404
 
+from django.contrib.auth.models import User
 from .models import Article, Category
 
 from django.views.generic import ListView
@@ -57,3 +58,17 @@ def category(request, slug, page=1):
 	}
 
 	return render(request, 'blog/category.html', context)
+
+def authorList(request, username, page=1):
+
+	author = get_object_or_404(User, username = username)
+	article_author_list = Article.objects.filter(author=author,status='p')
+	paginator = Paginator(article_author_list, 3)
+	articles = paginator.get_page(page)
+
+	context = {
+		'author' : author,
+		'article_author_list' : articles,
+		'username':username,
+	}
+	return render(request,'blog/author_list.html', context)
