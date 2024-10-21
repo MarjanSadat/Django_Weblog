@@ -34,7 +34,7 @@
                     <div class="post-preview" >
                         <a href="{% url 'blog:detail' article.slug %}">
                             <h2 class="post-title" style="font-family: 'Sahel'; font-size: 28px;">{{ article.title }}</h2>
-                            <h3 class="post-subtitle" style="font-family: 'Sahel'; font-size: 16px;">{{ article.description|truncatewords:15}}</h3>
+                            <h3 class="post-subtitle" style="font-family: 'Sahel'; font-size: 16px;">{{ article.description|striptags|truncatewords:15}}</h3>
                         </a>
                         <p class="post-meta">
                             نوشته شده توسط 
