@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import home, detail, category,authorList
+from .views import home, detail, category,authorList, ArticlePreview
 
 app_name = 'blog'
 urlpatterns = [
@@ -10,5 +10,5 @@ urlpatterns = [
     path('category/<slug:slug>/page/<int:page>', category, name='category'),
     path('author/<slug:username>', authorList, name='author'),
     path('author/<slug:username>/page/<int:page>', authorList, name='author'),
-
+    path('preview/<int:pk>', ArticlePreview.as_view(), name='preview')
 ]

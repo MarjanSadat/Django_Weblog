@@ -39,6 +39,8 @@ class Article(models.Model):
 		# ('p', 'Published'),
 		('d', 'پیش نویس'),
 		('p', 'منتشرشده'),
+		('i', 'در حال بررسی'),
+		('b', 'برگشت داده شده'),
 	)
 	author = models.ForeignKey(User, null=True, on_delete=models.SET_NULL, related_name='articles',verbose_name='نویسنده')
 	title = models.CharField(max_length = 200, verbose_name = 'عنوان مقاله')
@@ -49,6 +51,7 @@ class Article(models.Model):
 	publish = models.DateTimeField(default = timezone.now, verbose_name = 'زمان انتشار')
 	created = models.DateTimeField(auto_now_add = True)
 	updated = models.DateTimeField(auto_now = True)
+	is_special = models.BooleanField(default = False, verbose_name = 'مقاله ویژه')
 	status = models.CharField(max_length = 1, choices = STATUS_CHOICES, verbose_name = 'وضعیت')
 
 	def __str__(self):

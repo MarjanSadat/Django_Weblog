@@ -1,11 +1,10 @@
 from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404, get_list_or_404
 # from django.http import HttpResponse, JsonResponse, Http404
-
 from account.models import User
 from .models import Article, Category
-
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
+from account.mixins import AuthorAccessMixin
 
 # Create your views here.
 
@@ -60,7 +59,7 @@ def category(request, slug, page=1):
 	return render(request, 'blog/category.html', context)
 
 def authorList(request, username, page=1):
-
+	
 	author = get_object_or_404(User, username = username)
 	article_author_list = Article.objects.filter(author=author,status='p')
 	paginator = Paginator(article_author_list, 3)
@@ -72,3 +71,9 @@ def authorList(request, username, page=1):
 		'username':username,
 	}
 	return render(request,'blog/author_list.html', context)
+
+
+class ArticlePreview(AuthorAccessMixin, DetailView):
+	def get_object(self):
+		pk = self.kwargs.get('pk')
+		return get_object_or_404(Article, pk=pk)
