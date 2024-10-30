@@ -12,7 +12,12 @@
                 <div class="col-md-10 col-lg-8 col-xl-7">
                     <div class="site-heading">
                         <!-- <h1>Clean Blog</h1> -->
-                        <h2 style="font-family: 'Sahel';">{{article.title}}</h2>
+                        <h2 style="font-family: 'Sahel';">
+                            {{article.title}}
+                            {% if article.is_special %}
+                                <span style="font-size: 14px; background-color: red;border-radius: 5px; color:white;">ویژه</span>
+                            {% endif %}
+                        </h2>
                         <time>{{article.jpublish}}</time>
                     </div>
                 </div>
